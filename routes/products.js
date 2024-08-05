@@ -56,7 +56,8 @@ router.delete('/:id', auth, async (req, res) => {
 
         if (product.createdBy.toString() !== req.user.id) return res.status(403).json({ message: 'User not authorized' });
 
-        await product.remove();
+        await Product.deleteOne({ _id: id }); 
+        
         res.json({ message: 'Product removed' });
     } catch (err) {
         res.status(500).json({ error: err.message });
